@@ -11,7 +11,7 @@ import SwiftUI
 struct OthelloApp: App {
     var body: some Scene {
         WindowGroup {
-            GaneView()
+            GameView()
         }
     }
 }
