@@ -15,6 +15,7 @@
 		213797662B0F86E000679222 /* OthelloUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213797652B0F86E000679222 /* OthelloUITests.swift */; };
 		213797682B0F86E000679222 /* OthelloUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213797672B0F86E000679222 /* OthelloUITestsLaunchTests.swift */; };
 		9A2DCA662B2C747300A2D466 /* GameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DCA652B2C747300A2D466 /* GameLogic.swift */; };
+		9A2DCA682B2C7EDF00A2D466 /* GameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DCA672B2C7EDF00A2D466 /* GameMenu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		213797652B0F86E000679222 /* OthelloUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthelloUITests.swift; sourceTree = "<group>"; };
 		213797672B0F86E000679222 /* OthelloUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthelloUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9A2DCA652B2C747300A2D466 /* GameLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogic.swift; sourceTree = "<group>"; };
+		9A2DCA672B2C7EDF00A2D466 /* GameMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			children = (
 				2137974A2B0F86DE00679222 /* OthelloApp.swift */,
 				9A2DCA652B2C747300A2D466 /* GameLogic.swift */,
+				9A2DCA672B2C7EDF00A2D466 /* GameMenu.swift */,
 				2137974C2B0F86DE00679222 /* GaneView.swift */,
 				2137974E2B0F86DF00679222 /* Assets.xcassets */,
 				213797502B0F86DF00679222 /* Preview Content */,
@@ -260,6 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A2DCA682B2C7EDF00A2D466 /* GameMenu.swift in Sources */,
 				9A2DCA662B2C747300A2D466 /* GameLogic.swift in Sources */,
 				2137974D2B0F86DE00679222 /* GaneView.swift in Sources */,
 				2137974B2B0F86DE00679222 /* OthelloApp.swift in Sources */,

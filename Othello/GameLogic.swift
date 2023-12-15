@@ -58,26 +58,33 @@ class GameLogic: ObservableObject {
 
     func isValidMove(row: Int, column: Int, player: Player) -> Bool {
         guard valueBoard[row][column] == .clear else { return false }
+        let opponentColor = player == .black ? Color.white : Color.black
         let directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+        
         for (dx, dy) in directions {
-            var x = row + dx
-            var y = column + dy
+            var x = row
+            var y = column
             var foundOpponent = false
-            while x >= 0 && x < 6 && y >= 0 && y < 6 && valueBoard[x][y] != .clear {
-                if valueBoard[x][y] != player.color {
-                    foundOpponent = true
-                    x += dx
-                    y += dy
-                } else {
-                    if foundOpponent {
-                        return true
-                    }
-                    break
-                }
+            
+            x += dx
+            y += dy
+
+            // Continue in this direction until we hit an opponent's piece
+            while x >= 0 && x < 6 && y >= 0 && y < 6 && valueBoard[x][y] == opponentColor {
+                foundOpponent = true
+                x += dx
+                y += dy
+            }
+            
+            // Make sure we found at least one opponent piece and the next piece is the player's color
+            if foundOpponent && x >= 0 && x < 6 && y >= 0 && y < 6 && valueBoard[x][y] == player.color {
+                return true
             }
         }
+        
         return false
     }
+
 
     func makeMove(row: Int, column: Int, player: Player) {
         let directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
