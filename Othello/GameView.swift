@@ -26,7 +26,7 @@ struct GameView: View {
                     .padding(.horizontal).bold()
                     .foregroundColor(primary_color)
                     .padding(EdgeInsets(top: 10, leading: 0, bottom: 40, trailing: 10))
-                
+                  //Use for check Potential Moves
 //                Text("Potential Moves: \(gameLogic.countPotentialMoves(for: gameLogic.currentTurn))")
 //                        .font(.headline)
 //                        .foregroundColor(.primary)
@@ -58,11 +58,12 @@ struct GameView: View {
                     // Green
                     ForEach(0..<6, id: \.self) { row in
                            HStack(spacing: 1) {
+                               //Config this loop for advice
                                ForEach(0..<6, id: \.self) { column in
-                                   // Determine if the current position is a potential move
+                                   // set potentialMove
                                    let potentialMove = gameLogic.isPotentialMove(row: row, column: column)
 
-                                   // Create a CardView with the determined properties
+                                   // Create board with value and advice
                                    CardView(value: gameLogic.valueBoard[row][column], isPotentialMove: potentialMove)
                                        .onTapGesture {
                                            gameLogic.handleTap(row: row, column: column)
