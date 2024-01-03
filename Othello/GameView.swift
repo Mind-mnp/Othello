@@ -27,7 +27,9 @@ struct GameView: View {
                     .foregroundColor(primary_color)
                     .padding(EdgeInsets(top: 10, leading: 0, bottom: 40, trailing: 10))
                 
-        
+//                Text("Potential Moves: \(gameLogic.countPotentialMoves(for: gameLogic.currentTurn))")
+//                        .font(.headline)
+//                        .foregroundColor(.primary)
                 VStack(spacing: 4) {
                     // White Score
                     VStack {
@@ -52,20 +54,22 @@ struct GameView: View {
                     Spacer()
                             .frame(height: 10)
                     
+                    
                     // Green
                     ForEach(0..<6, id: \.self) { row in
-                        HStack(spacing: 1) {
-                            ForEach(0..<6, id: \.self) { column in
-                                CardView(value: gameLogic.valueBoard[row][column])
-                                    .foregroundColor(.red)
-                                    .onTapGesture {
-                                        gameLogic.handleTap(row: row, column: column)
-                                        
-                                        
-                                    }
-                            }
-                        }
-                    }
+                           HStack(spacing: 1) {
+                               ForEach(0..<6, id: \.self) { column in
+                                   // Determine if the current position is a potential move
+                                   let potentialMove = gameLogic.isPotentialMove(row: row, column: column)
+
+                                   // Create a CardView with the determined properties
+                                   CardView(value: gameLogic.valueBoard[row][column], isPotentialMove: potentialMove)
+                                       .onTapGesture {
+                                           gameLogic.handleTap(row: row, column: column)
+                                       }
+                               }
+                           }
+                       }
                     Spacer()
                             .frame(height: 10)
 
@@ -144,18 +148,20 @@ struct Chip: View {
 
 struct CardView: View {
     var value: Color
+    var isPotentialMove: Bool
 
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
                 .frame(width: 55, height: 55)
-                .foregroundColor(Color(red: 11/255, green: 102/255, blue: 90/255))
-            //chip
+                .foregroundColor(isPotentialMove ? Color.blue.opacity(0.3) : Color(red: 11/255, green: 102/255, blue: 90/255))
+            
+            // Chip
             Chip(color: value)
-
         }
     }
 }
+
 
 struct ResultPopup: View {
     let message: String

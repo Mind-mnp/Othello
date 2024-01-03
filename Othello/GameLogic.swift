@@ -56,11 +56,37 @@ class GameLogic: ObservableObject {
         valueBoard = [[.black, .white, .white, .white, .white, .clear], [.white, .white, .white, .white, .black, .white],[.white, .black, .white, .white, .black, .white], [.white, .white, .black, .white, .white, .white], [.black, .black, .white, .black, .white, .white], [.black, .white, .white, .white, .white, .white]]
     }
 
+    func isPotentialMove(row: Int, column: Int) -> Bool {
+    return isValidMove(row: row, column: column, player: currentTurn)
+    }
+    
+    func countPotentialMoves(for player: Player) -> Int {
+        var count = 0
+        for row in 0..<valueBoard.count {
+            for column in 0..<valueBoard[row].count {
+                if isValidMove(row: row, column: column, player: player) {
+                    count += 1
+                }
+            }
+        }
+        return count
+    }
+
+
+
     func handleTap(row: Int, column: Int) {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            // If the current player has no potential moves left, switch turns
+            if self.countPotentialMoves(for: self.currentTurn) == 0 {
+                self.currentTurn = self.currentTurn == .black ? .white : .black
+            }}
+        
         //Manage table
         if isValidMove(row: row, column: column, player: currentTurn) {
             makeMove(row: row, column: column, player: currentTurn)
             currentTurn = currentTurn == .black ? .white : .black
+            
             updateCounts()
         }
         
