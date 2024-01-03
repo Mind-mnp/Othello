@@ -42,7 +42,7 @@ class GameLogic: ObservableObject {
                     valueBoard[row][column] = .clear
                 }
             }
-        //ค่าเริ่มต้น
+        //Initial state
         valueBoard[2][2] = .white
         valueBoard[3][3] = .white
         valueBoard[2][3] = .black
@@ -57,6 +57,7 @@ class GameLogic: ObservableObject {
     }
 
     func handleTap(row: Int, column: Int) {
+        //Manage table
         if isValidMove(row: row, column: column, player: currentTurn) {
             makeMove(row: row, column: column, player: currentTurn)
             currentTurn = currentTurn == .black ? .white : .black
@@ -64,11 +65,13 @@ class GameLogic: ObservableObject {
         }
         
     }
-
+    //Check for game rule
     func isValidMove(row: Int, column: Int, player: Player) -> Bool {
+        // Topleft, Top, Topright, Right, Underright, Under, UnderLeft, Left
+        let directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
         guard valueBoard[row][column] == .clear else { return false }
         let opponentColor = player == .black ? Color.white : Color.black
-        let directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+        
         
         for (dx, dy) in directions {
             var x = row
@@ -96,18 +99,22 @@ class GameLogic: ObservableObject {
 
 
     func makeMove(row: Int, column: Int, player: Player) {
-        let directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+        // Topleft, Top, Topright, Right, Underright, Under, UnderLeft, Left
+        let directions = [(-1, -1), (-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1),  ]
         valueBoard[row][column] = player.color
         for (dx, dy) in directions {
             var x = row + dx
             var y = column + dy
             var path: [(Int, Int)] = []
+         // Check Chip is on board and table is clear
             while x >= 0 && x < 6 && y >= 0 && y < 6 && valueBoard[x][y] != .clear {
+                //เช็ค chip ใกล้เคียงว่าสีคนละสีไหมถ้าใช่ลงได้ แล้วเพิ่ม path ไป
                 if valueBoard[x][y] != player.color {
                     path.append((x, y))
                     x += dx
                     y += dy
                 } else {
+                    // path ไม่ว่างแล้วทำอันนี้
                     if !path.isEmpty {
                         for (px, py) in path {
                             valueBoard[px][py] = player.color
@@ -120,6 +127,7 @@ class GameLogic: ObservableObject {
     }
 
     func updateCounts() {
+        //Use flatmap for tranform array to single number
         countBlack = valueBoard.flatMap { $0 }.filter { $0 == .black }.count
         countWhite = valueBoard.flatMap { $0 }.filter { $0 == .white }.count
     }
