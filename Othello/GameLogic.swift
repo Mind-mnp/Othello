@@ -55,11 +55,13 @@ class GameLogic: ObservableObject {
         // test case white win
         valueBoard = [[.black, .white, .white, .white, .white, .clear], [.white, .white, .white, .white, .black, .white],[.white, .black, .white, .white, .black, .white], [.white, .white, .black, .white, .white, .white], [.black, .black, .white, .black, .white, .white], [.black, .white, .white, .white, .white, .white]]
     }
-
+    
+    //Use for advice player
     func isPotentialMove(row: Int, column: Int) -> Bool {
     return isValidMove(row: row, column: column, player: currentTurn)
     }
     
+    //Count can move or not
     func countPotentialMoves(for player: Player) -> Int {
         var count = 0
         for row in 0..<valueBoard.count {
@@ -75,7 +77,7 @@ class GameLogic: ObservableObject {
 
 
     func handleTap(row: Int, column: Int) {
-        
+        //Use delay one second for check countPotentialMoves == 0 or not
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             // If the current player has no potential moves left, switch turns
             if self.countPotentialMoves(for: self.currentTurn) == 0 {

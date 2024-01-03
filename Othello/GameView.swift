@@ -154,6 +154,7 @@ struct CardView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
                 .frame(width: 55, height: 55)
+                // if player can place chip its will be blue color
                 .foregroundColor(isPotentialMove ? Color.blue.opacity(0.3) : Color(red: 11/255, green: 102/255, blue: 90/255))
             
             // Chip
