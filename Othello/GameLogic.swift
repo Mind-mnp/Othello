@@ -53,7 +53,17 @@ class GameLogic: ObservableObject {
     
     func testcase(){
         // test case white win
-        valueBoard = [[.black, .white, .white, .white, .white, .clear], [.white, .white, .white, .white, .black, .white],[.white, .black, .white, .white, .black, .white], [.white, .white, .black, .white, .white, .white], [.black, .black, .white, .black, .white, .white], [.black, .white, .white, .white, .white, .white]]
+//        valueBoard = [[.black, .white, .white, .white, .white, .clear], [.white, .white, .white, .white, .black, .white],[.white, .black, .white, .white, .black, .white], [.white, .white, .black, .white, .white, .white], [.black, .black, .white, .black, .white, .white], [.black, .white, .white, .white, .white, .white]]
+        // test case black win
+//        valueBoard = [
+//            [.clear, .clear, .black, .clear, .clear, .clear],
+//            [.black, .clear, .black, .black, .clear, .clear],
+//            [.black, .black, .black, .black, .black, .clear],
+//            [.black, .black, .black, .black, .black, .clear],
+//            [.clear, .clear, .black, .black, .clear, .clear],
+//            [.clear, .clear, .black, .black, .black, .clear]
+//        ]
+        
     }
 
     func handleTap(row: Int, column: Int) {
@@ -155,10 +165,14 @@ class GameLogic: ObservableObject {
 
     func determineWinner() -> String {
         if countBlack > countWhite {
+            print(valueBoard)
             return "Black wins!"
+            
         } else if countWhite > countBlack {
+            print(valueBoard)
             return "White wins!"
         } else {
+            print(valueBoard)
             return "It's a tie!"
         }
     }
