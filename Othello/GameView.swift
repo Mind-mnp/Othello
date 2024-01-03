@@ -112,8 +112,8 @@ struct GameView: View {
         .background(Color(red: 236/255, green: 220/255, blue: 197/255))
         .ignoresSafeArea()
         .onAppear {
-            //gameLogic.setupInitialBoard()
-            gameLogic.testcase()
+            gameLogic.setupInitialBoard()
+            //gameLogic.testcase()
         }
     }
 }
@@ -147,9 +147,10 @@ struct CardView: View {
 
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 12)
+            RoundedRectangle(cornerRadius: 6)
                 .frame(width: 55, height: 55)
-                .foregroundColor(Color(red: 11/255, green: 102/255, blue: 90/255))
+                .foregroundColor(Color(red: 0/255, green: 144/255, blue: 103/255))
+                .padding(2)
             //chip
             Chip(color: value)
 

@@ -165,14 +165,11 @@ class GameLogic: ObservableObject {
 
     func determineWinner() -> String {
         if countBlack > countWhite {
-            print(valueBoard)
             return "Black wins!"
             
         } else if countWhite > countBlack {
-            print(valueBoard)
             return "White wins!"
         } else {
-            print(valueBoard)
             return "It's a tie!"
         }
     }

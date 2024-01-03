@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 # 🚀 Othello Project
 
 ### 👤 Creater:
@@ -12,3 +13,10 @@
 - Swift
 
 ### 🎥 Demo:
+=======
+# Othello
+ 
+Member
+1. ณิชาภา ภรภัทร์ธนะดุล <6410742362>
+
+>>>>>>> Stashed changes
