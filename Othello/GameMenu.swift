@@ -43,6 +43,7 @@ struct GameMenu: View {
                             .background(Color.white)
                             .foregroundColor(.black)
                             .cornerRadius(50)
+                            .offset(y: -20)
                         
                     }
                     .padding([.bottom, .leading, .trailing])
@@ -55,6 +56,7 @@ struct GameMenu: View {
                             .background(Color.white)
                             .foregroundColor(.black)
                             .cornerRadius(50)
+                            .offset(y: -20)
                         
                     }
                     .padding([.bottom, .leading, .trailing])
@@ -69,7 +71,10 @@ struct GameMenu: View {
                             .background(Color.white)
                             .foregroundColor(.black)
                             .cornerRadius(50)
-                    }.padding([.bottom, .leading, .trailing])
+                        
+                    }
+                    .padding([.bottom, .leading, .trailing])
+                    .offset(y: -20)
 
                     
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 50, trailing: 10)) //button

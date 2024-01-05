@@ -7,15 +7,46 @@
 
 import SwiftUI
 
+enum Theme: String, CaseIterable {
+    case theme0, theme1, theme2, theme3, theme4, theme5
+
+    var primaryColor: Color {
+        switch self {
+        case .theme0:
+            return Color(red: 49/255, green: 48/255, blue: 48/255)
+        case .theme1:
+            // Space Grey
+            return Color(red: 44/255, green: 44/255, blue: 46/255)
+        case .theme2:
+            // Raven Color
+            return Color(red: 20/255, green: 20/255, blue: 30/255)
+        case .theme3:
+            // Nightshade
+            return Color(red: 25/255, green: 20/255, blue: 45/255)
+        case .theme4:
+            // Obsidian Color
+            return Color(red: 15/255, green: 15/255, blue: 20/255)
+        case .theme5:
+            // Ebony Color
+            return Color(red: 8/255, green: 8/255, blue: 12/255)
+        }
+    }
+}
+
+
 struct GameView: View {
     @StateObject private var gameLogic = GameLogic()
     @State private var showWinnerPopup = false
     @State private var winnerMessage = ""
+    @State private var currentTheme: Theme = .theme0
+    
+
+
 
     var body: some View {
         let primary_color = Color.black
 //        let secondary_color = Color(red: 37/255, green: 33/255, blue: 34/255)
-        let boardgame_color = Color(red: 49/255, green: 48/255, blue: 48/255)
+        let boardgame_color = currentTheme.primaryColor
 
         ZStack{
             VStack(spacing: 4) {
@@ -26,6 +57,8 @@ struct GameView: View {
                     .padding(.horizontal).bold()
                     .foregroundColor(primary_color)
                     .padding(EdgeInsets(top: 10, leading: 0, bottom: 40, trailing: 10))
+                    .offset(y: 40)
+                    
                   //Use for check Potential Moves
                 //Text("Potential Moves: \(gameLogic.countPotentialMoves(for: gameLogic.currentTurn))")
                        //.font(.headline)
@@ -99,6 +132,19 @@ struct GameView: View {
                 )
                 
                 
+                HStack {
+                                    ForEach(Theme.allCases, id: \.self) { theme in
+                                        Circle()
+                                            .fill(theme.primaryColor)
+                                            .frame(width: 30, height: 30)
+                                            .onTapGesture {
+                                                currentTheme = theme
+                                            }
+                                    }
+                                }
+                                .padding()
+                
+                
             } //container
             
             if gameLogic.isGameEnded() {
@@ -121,6 +167,7 @@ struct GameView: View {
 //            gameLogic.testcase()
         }
     }
+    
 }
 
 struct Chip: View {
@@ -193,7 +240,7 @@ struct ResultPopup: View {
                     .cornerRadius(15)
                 
             }
-            .padding() 
+            .padding()
             .background(Color.white)
             .cornerRadius(20)
             .shadow(radius: 20)
@@ -214,3 +261,4 @@ struct GaneView_Previews: PreviewProvider {
         GameView()
     }
 }
+
