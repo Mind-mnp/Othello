@@ -46,6 +46,20 @@ struct GameMenu: View {
                         
                     }
                     
+            
+                    Button(action: {
+                        exit(0)
+                    }) {
+                        Text("Quit")
+                            .frame(width: 200, height: 30)
+                            .font(.title)
+                            .padding()
+                            .background(Color.white)
+                            .foregroundColor(.black)
+                            .cornerRadius(50)
+                    }
+
+                    
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 50, trailing: 10)) //button
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)

@@ -27,9 +27,9 @@ struct GameView: View {
                     .foregroundColor(primary_color)
                     .padding(EdgeInsets(top: 10, leading: 0, bottom: 40, trailing: 10))
                   //Use for check Potential Moves
-//                Text("Potential Moves: \(gameLogic.countPotentialMoves(for: gameLogic.currentTurn))")
-//                        .font(.headline)
-//                        .foregroundColor(.primary)
+                //Text("Potential Moves: \(gameLogic.countPotentialMoves(for: gameLogic.currentTurn))")
+                       //.font(.headline)
+                       // .foregroundColor(.primary)
                 VStack(spacing: 4) {
                     // White Score
                     VStack {
@@ -117,8 +117,8 @@ struct GameView: View {
         .background(Color(red: 236/255, green: 220/255, blue: 197/255))
         .ignoresSafeArea()
         .onAppear {
-            //gameLogic.setupInitialBoard()
-            gameLogic.testcase()
+            gameLogic.setupInitialBoard()
+//            gameLogic.testcase()
         }
     }
 }
@@ -156,7 +156,8 @@ struct CardView: View {
             RoundedRectangle(cornerRadius: 12)
                 .frame(width: 55, height: 55)
                 // if player can place chip its will be blue color
-                .foregroundColor(isPotentialMove ? Color.blue.opacity(0.3) : Color(red: 11/255, green: 102/255, blue: 90/255))
+                .foregroundColor(isPotentialMove ? Color(red: 144/255, green: 238/255, blue: 144/255).opacity(0.3) : Color(red: 11/255, green: 102/255, blue: 90/255))
+
             
             // Chip
             Chip(color: value)

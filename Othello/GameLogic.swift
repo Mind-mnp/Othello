@@ -78,11 +78,12 @@ class GameLogic: ObservableObject {
 
     func handleTap(row: Int, column: Int) {
         //Use delay one second for check countPotentialMoves == 0 or not
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            // If the current player has no potential moves left, switch turns
-            if self.countPotentialMoves(for: self.currentTurn) == 0 {
-                self.currentTurn = self.currentTurn == .black ? .white : .black
-            }}
+        
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1)  {
+                // If the current player has no potential moves left, switch turns
+                if self.countPotentialMoves(for: self.currentTurn) == 0 && self.isGameEnded() != true  {
+                    self.currentTurn = self.currentTurn == .black ? .white : .black
+                }}
         
         //Manage table
         if isValidMove(row: row, column: column, player: currentTurn) {
