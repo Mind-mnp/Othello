@@ -110,14 +110,14 @@ class GameLogic: ObservableObject {
             x += dx
             y += dy
 
-            // Continue in this direction until we hit an opponent's piece
+            
             while x >= 0 && x < 6 && y >= 0 && y < 6 && valueBoard[x][y] == opponentColor {
                 foundOpponent = true
                 x += dx
                 y += dy
             }
             
-            // Make sure we found at least one opponent piece and the next piece is the player's color
+            
             if foundOpponent && x >= 0 && x < 6 && y >= 0 && y < 6 && valueBoard[x][y] == player.color {
                 return true
             }
@@ -137,13 +137,13 @@ class GameLogic: ObservableObject {
             var path: [(Int, Int)] = []
          // Check Chip is on board and table is clear
             while x >= 0 && x < 6 && y >= 0 && y < 6 && valueBoard[x][y] != .clear {
-                //เช็ค chip ใกล้เคียงว่าสีคนละสีไหมถ้าใช่ลงได้ แล้วเพิ่ม path ไป
+                // Check near chip on board is the same color
                 if valueBoard[x][y] != player.color {
                     path.append((x, y))
                     x += dx
                     y += dy
                 } else {
-                    // path ไม่ว่างแล้วทำอันนี้
+                    // if path is not empty change chip on board with row and coloumn to current player
                     if !path.isEmpty {
                         for (px, py) in path {
                             valueBoard[px][py] = player.color
