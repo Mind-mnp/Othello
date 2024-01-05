@@ -28,12 +28,12 @@ struct GameMenu: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 350, height: 350)
-                        .padding()
+                        .padding([.top, .leading, .trailing])
                     
                     Text("OTHELLO")
                         .font(.system(size: 80))
                         .bold()
-                    
+                        
                     
                     NavigationLink(destination: GameView()) {
                         Text("Start Game")
@@ -45,8 +45,20 @@ struct GameMenu: View {
                             .cornerRadius(50)
                         
                     }
+                    .padding([.bottom, .leading, .trailing])
                     
-            
+                    NavigationLink(destination: GameTutorial()) {
+                        Text("Tutorial")
+                            .frame(width: 200, height: 30)
+                            .font(.title)
+                            .padding()
+                            .background(Color.white)
+                            .foregroundColor(.black)
+                            .cornerRadius(50)
+                        
+                    }
+                    .padding([.bottom, .leading, .trailing])
+                    
                     Button(action: {
                         exit(0)
                     }) {
@@ -57,7 +69,7 @@ struct GameMenu: View {
                             .background(Color.white)
                             .foregroundColor(.black)
                             .cornerRadius(50)
-                    }
+                    }.padding([.bottom, .leading, .trailing])
 
                     
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 50, trailing: 10)) //button
@@ -65,7 +77,7 @@ struct GameMenu: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color(red: 236/255, green: 220/255, blue: 197/255))
                 .ignoresSafeArea()
-            }
+            }.navigationBarBackButtonHidden(true)
         }
     }
 

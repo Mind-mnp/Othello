@@ -14,7 +14,7 @@ struct GameView: View {
 
     var body: some View {
         let primary_color = Color.black
-        let secondary_color = Color(red: 37/255, green: 33/255, blue: 34/255)
+//        let secondary_color = Color(red: 37/255, green: 33/255, blue: 34/255)
         let boardgame_color = Color(red: 49/255, green: 48/255, blue: 48/255)
 
         ZStack{
@@ -193,7 +193,7 @@ struct ResultPopup: View {
                     .cornerRadius(15)
                 
             }
-            .padding()
+            .padding() 
             .background(Color.white)
             .cornerRadius(20)
             .shadow(radius: 20)
