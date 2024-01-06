@@ -7,15 +7,46 @@
 
 import SwiftUI
 
+enum Theme: String, CaseIterable {
+    case theme0, theme1, theme2, theme3, theme4, theme5
+
+    var primaryColor: Color {
+        switch self {
+        case .theme0:
+            return Color(red: 49/255, green: 48/255, blue: 48/255)
+        case .theme1:
+            // Space Grey
+            return Color(red: 44/255, green: 44/255, blue: 46/255)
+        case .theme2:
+            // Raven Color
+            return Color(red: 20/255, green: 20/255, blue: 30/255)
+        case .theme3:
+            // Nightshade
+            return Color(red: 25/255, green: 20/255, blue: 45/255)
+        case .theme4:
+            // Obsidian Color
+            return Color(red: 15/255, green: 15/255, blue: 20/255)
+        case .theme5:
+            // Ebony Color
+            return Color(red: 8/255, green: 8/255, blue: 12/255)
+        }
+    }
+}
+
+
 struct GameView: View {
     @StateObject private var gameLogic = GameLogic()
     @State private var showWinnerPopup = false
     @State private var winnerMessage = ""
+    @State private var currentTheme: Theme = .theme0
+    
+
+
 
     var body: some View {
         let primary_color = Color.black
-        let secondary_color = Color(red: 37/255, green: 33/255, blue: 34/255)
-        let boardgame_color = Color(red: 49/255, green: 48/255, blue: 48/255)
+//        let secondary_color = Color(red: 37/255, green: 33/255, blue: 34/255)
+        let boardgame_color = currentTheme.primaryColor
 
         ZStack{
             VStack(spacing: 4) {
@@ -26,8 +57,12 @@ struct GameView: View {
                     .padding(.horizontal).bold()
                     .foregroundColor(primary_color)
                     .padding(EdgeInsets(top: 10, leading: 0, bottom: 40, trailing: 10))
-                
-        
+                    .offset(y: 40)
+                    
+                  //Use for check Potential Moves
+                //Text("Potential Moves: \(gameLogic.countPotentialMoves(for: gameLogic.currentTurn))")
+                       //.font(.headline)
+                       // .foregroundColor(.primary)
                 VStack(spacing: 4) {
                     // White Score
                     VStack {
@@ -52,20 +87,23 @@ struct GameView: View {
                     Spacer()
                             .frame(height: 10)
                     
+                    
                     // Green
                     ForEach(0..<6, id: \.self) { row in
-                        HStack(spacing: 1) {
-                            ForEach(0..<6, id: \.self) { column in
-                                CardView(value: gameLogic.valueBoard[row][column])
-                                    .foregroundColor(.red)
-                                    .onTapGesture {
-                                        gameLogic.handleTap(row: row, column: column)
-                                        
-                                        
-                                    }
-                            }
-                        }
-                    }
+                           HStack(spacing: 1) {
+                               //Config this loop for advice
+                               ForEach(0..<6, id: \.self) { column in
+                                   // set potentialMove
+                                   let potentialMove = gameLogic.isPotentialMove(row: row, column: column)
+
+                                   // Create board with value and advice
+                                   CardView(value: gameLogic.valueBoard[row][column], isPotentialMove: potentialMove)
+                                       .onTapGesture {
+                                           gameLogic.handleTap(row: row, column: column)
+                                       }
+                               }
+                           }
+                       }
                     Spacer()
                             .frame(height: 10)
 
@@ -93,6 +131,19 @@ struct GameView: View {
                     .fill(boardgame_color)
                 )
                 
+                //Theme manage
+                HStack {
+                    ForEach(Theme.allCases, id: \.self) { theme in
+                        Circle()
+                            .fill(theme.primaryColor)
+                            .frame(width: 30, height: 30)
+                            .onTapGesture {
+                                currentTheme = theme
+                                }
+                    }
+                }
+                .padding()
+                
                 
             } //container
             
@@ -116,6 +167,7 @@ struct GameView: View {
             //gameLogic.testcase()
         }
     }
+    
 }
 
 struct Chip: View {
@@ -127,11 +179,10 @@ struct Chip: View {
                 Circle()
                     .frame(width: 50, height: 50)
                     .foregroundColor(color)
-                    
                 Circle()
                     .frame(width: 40, height: 50)
                     .foregroundColor(color)
-                    .overlay(Circle().stroke(color == .white ? .black: .gray))
+                    .overlay(Circle().stroke(color == .white ? .black: .white))
                     .blur(radius: 2)
                     .offset(x: 2, y: 2)
                     .clipShape(Circle())
@@ -144,19 +195,22 @@ struct Chip: View {
 
 struct CardView: View {
     var value: Color
+    var isPotentialMove: Bool
 
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 6)
                 .frame(width: 55, height: 55)
-                .foregroundColor(Color(red: 0/255, green: 144/255, blue: 103/255))
-                .padding(2)
-            //chip
-            Chip(color: value)
+                // if player can place chip its will be blue color
+                .foregroundColor(isPotentialMove ? Color(red: 144/255, green: 238/255, blue: 144/255).opacity(0.3) : Color(red: 11/255, green: 102/255, blue: 90/255))
 
+            
+            // Chip
+            Chip(color: value)
         }
     }
 }
+
 
 struct ResultPopup: View {
     let message: String
@@ -206,3 +260,4 @@ struct GaneView_Previews: PreviewProvider {
         GameView()
     }
 }
+

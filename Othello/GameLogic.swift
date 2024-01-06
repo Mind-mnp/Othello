@@ -65,8 +65,36 @@ class GameLogic: ObservableObject {
 //        ]
         
     }
+    
+    //Use for advice player
+    func isPotentialMove(row: Int, column: Int) -> Bool {
+    return isValidMove(row: row, column: column, player: currentTurn)
+    }
+    
+    //Count can move or not
+    func countPotentialMoves(for player: Player) -> Int {
+        var count = 0
+        for row in 0..<valueBoard.count {
+            for column in 0..<valueBoard[row].count {
+                if isValidMove(row: row, column: column, player: player) {
+                    count += 1
+                }
+            }
+        }
+        return count
+    }
+
+
 
     func handleTap(row: Int, column: Int) {
+        //Use delay one second for check countPotentialMoves == 0 or not
+        
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1)  {
+                // If the current player has no potential moves left, switch turns
+                if self.countPotentialMoves(for: self.currentTurn) == 0 && self.isGameEnded() != true  {
+                    self.currentTurn = self.currentTurn == .black ? .white : .black
+                }}
+        
         //Manage table
         if isValidMove(row: row, column: column, player: currentTurn) {
             makeMove(row: row, column: column, player: currentTurn)
@@ -91,14 +119,12 @@ class GameLogic: ObservableObject {
             x += dx
             y += dy
 
-            // Continue in this direction until we hit an opponent's piece
             while x >= 0 && x < 6 && y >= 0 && y < 6 && valueBoard[x][y] == opponentColor {
                 foundOpponent = true
                 x += dx
                 y += dy
             }
             
-            // Make sure we found at least one opponent piece and the next piece is the player's color
             if foundOpponent && x >= 0 && x < 6 && y >= 0 && y < 6 && valueBoard[x][y] == player.color {
                 return true
             }
@@ -118,13 +144,13 @@ class GameLogic: ObservableObject {
             var path: [(Int, Int)] = []
          // Check Chip is on board and table is clear
             while x >= 0 && x < 6 && y >= 0 && y < 6 && valueBoard[x][y] != .clear {
-                //เช็ค chip ใกล้เคียงว่าสีคนละสีไหมถ้าใช่ลงได้ แล้วเพิ่ม path ไป
+                // Check near chip on board is the same color
                 if valueBoard[x][y] != player.color {
                     path.append((x, y))
                     x += dx
                     y += dy
                 } else {
-                    // path ไม่ว่างแล้วทำอันนี้
+                    // if path is not empty change chip on board with row and coloumn to current player
                     if !path.isEmpty {
                         for (px, py) in path {
                             valueBoard[px][py] = player.color
