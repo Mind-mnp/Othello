@@ -89,7 +89,6 @@ class GameLogic: ObservableObject {
         if isValidMove(row: row, column: column, player: currentTurn) {
             makeMove(row: row, column: column, player: currentTurn)
             currentTurn = currentTurn == .black ? .white : .black
-            
             updateCounts()
         }
         
@@ -110,13 +109,11 @@ class GameLogic: ObservableObject {
             x += dx
             y += dy
 
-            
             while x >= 0 && x < 6 && y >= 0 && y < 6 && valueBoard[x][y] == opponentColor {
                 foundOpponent = true
                 x += dx
                 y += dy
             }
-            
             
             if foundOpponent && x >= 0 && x < 6 && y >= 0 && y < 6 && valueBoard[x][y] == player.color {
                 return true

@@ -131,18 +131,18 @@ struct GameView: View {
                     .fill(boardgame_color)
                 )
                 
-                
+                //Theme manage
                 HStack {
-                                    ForEach(Theme.allCases, id: \.self) { theme in
-                                        Circle()
-                                            .fill(theme.primaryColor)
-                                            .frame(width: 30, height: 30)
-                                            .onTapGesture {
-                                                currentTheme = theme
-                                            }
-                                    }
+                    ForEach(Theme.allCases, id: \.self) { theme in
+                        Circle()
+                            .fill(theme.primaryColor)
+                            .frame(width: 30, height: 30)
+                            .onTapGesture {
+                                currentTheme = theme
                                 }
-                                .padding()
+                    }
+                }
+                .padding()
                 
                 
             } //container
@@ -164,7 +164,7 @@ struct GameView: View {
         .ignoresSafeArea()
         .onAppear {
             gameLogic.setupInitialBoard()
-//            gameLogic.testcase()
+            //gameLogic.testcase()
         }
     }
     
@@ -179,11 +179,10 @@ struct Chip: View {
                 Circle()
                     .frame(width: 50, height: 50)
                     .foregroundColor(color)
-                    
                 Circle()
                     .frame(width: 40, height: 50)
                     .foregroundColor(color)
-                    .overlay(Circle().stroke(color == .white ? .black: .gray))
+                    .overlay(Circle().stroke(color == .white ? .black: .white))
                     .blur(radius: 2)
                     .offset(x: 2, y: 2)
                     .clipShape(Circle())
